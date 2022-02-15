@@ -1,0 +1,12 @@
+﻿NAME,TYPE_OF_ALCOHOL,FLAVORS,SIDE_BASE,TOPPING
+Irish Coffee,Whiskey,Bitter,coffee,Whipped_cream
+CBD Spritz,Vodka,Fruity,Sparkling_soda,Grapefruit
+Dark Side,Gin,Bitter,None,Cherry
+Margarita,Tequila,Sweet,Lime_juice,Lime
+Old Fashioned,Whiskey,Bitter,Syrup,Orange
+Negroni,Campari,Sweet,Sparkling_soda,None
+Daiquiri,Rum,Sour,Lime_juice,Lime
+Pear and rose punch,None,Fruity,Pear_juice,Rosemary
+Virgin piña colada,None,Fruity,Pineapple_juice,Cherry
+Faux fizz,None,Sour,Syrup,Rosemary
+Non-alcoholic G&T,None,Sweet,Tonic_water,Mint
