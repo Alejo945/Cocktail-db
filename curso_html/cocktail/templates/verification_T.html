@@ -1,0 +1,317 @@
+
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title> Perfect Cocktail Beta</title>
+     <!-- Bootstrap styles -->
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+     <link rel = "stylesheet" href="/static/style.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap-theme.min.css"
+     integrity="sha384-rHyoN1iRsVXV4nD0justInGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  </head>
+  <body>
+<!-- Begin navbar -->
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand mr-0">
+      <img class="mr-1" src="/static/cocktail.png" alt="" width="30" height="30">
+      Perfect Cocktail
+    </a>
+  </div>
+  </nav>
+</header>
+<!-- End navbar -->
+      
+<!-- Main Form follows-->
+<main role="main" class="container-fluid">
+  <div class="row">
+      <h1>.</>
+      <h1> </>
+      <h2 class="text-center" >Build your coktail</h2>
+  </div>
+  <br>
+  <br>
+  <form name="MainForm" action="#" method="POST" enctype="multipart/form-data">
+
+
+     <div class="row">
+        <div class="col-md-3 container body-container" id="mainContent">
+        <!--
+         style="background-image: url('https://i.imgur.com/yO48S3U.jpeg')" alt="">
+       -->
+       <h3 class="text">Flavor</h3>
+       <img class="img-thumbnail" src="https://foodindustryexecutive.com/wp-content/uploads/2021/01/Flavors-of-2021-1-e1610499823950.jpg" alt="" width="220" height="220">
+       <label for="myCheck">Choose a flavor</label> 
+       <input type="checkbox" id="myCheck" onclick="myFunction()">
+       
+       <p id="text" style="display:none">            <select class="custom-select form-control d-block w-100" id="input1" name="input1" required>
+            <option value=""></option>
+            <option value="Sweet">Sweet</option>
+            <option value="Sour">Sour</option>
+            <option value="Bitter">Bitter</option>
+            <option value="Fruity">Fruity</option>
+            <option value="Fruity">Savory</option>
+            <option value="Herbaceous">Herbaceous</option>
+
+            
+          </select>        <label for="myCheck5">Second flavor</label> 
+          <input type="checkbox" id="myCheck5" onclick="myFunction4()">
+  
+          <p id="text5" style="display:none">            <select class="custom-select form-control d-block w-100" id="input5" name="input5" >
+              <option value=""></option>
+              <option value="Sweet">Sweet</option>
+              <option value="Sour">Sour</option>
+              <option value="Bitter">Bitter</option>
+              <option value="Fruity">Fruity</option>
+              <option value="Fruity">Savory</option>
+              <option value="Herbaceous">Herbaceous</option>
+            </select></p>
+  
+          <script>
+          function myFunction4() {
+            var checkBox = document.getElementById("myCheck5");
+            var text = document.getElementById("text5");
+            if (checkBox.checked == true){
+              text.style.display = "block";
+            } else {
+              text.style.display = "none";
+            }
+          }
+          </script></p>
+       
+       <script>
+       function myFunction() {
+         var checkBox = document.getElementById("myCheck");
+         var text = document.getElementById("text");
+         if (checkBox.checked == true){
+           text.style.display = "block";
+         } else {
+            text.style.display = "none";
+         }
+       }
+       </script>
+        </div>
+    <!--  </div> -->
+
+    <!--  <div class="row"> -->
+        <div class="col-md-3">
+          <h3 class="text">Alcohol</h3>
+          <img class="img-thumbnail" src="https://media.istockphoto.com/photos/different-glasses-with-a-variety-of-alcohol-drinks-picture-id185139982?k=6&m=185139982&s=170667a&w=0&h=f5oTod2DbsUNCw_jqZlHmiqGssBaxyKYiXz1O-2lygI=" alt="" width="200" height="200">
+          <label for="myCheckC">Choose a type</label> 
+          <input type="checkbox" id="myCheckC" onclick="myFunctionC()">
+          
+          <p id="textC" style="display:none">            <select class="custom-select form-control d-block w-100" id="inputC" name="inputC" required>
+            <option value=""></option>
+            <option value="Vodka">Vodka</option>
+            <option value="Tequila">Tequila</option>
+            <option value="Gin">Gin</option>
+            <option value="Campari">Campari</option>
+            <option value="Whiskey">Whiskey</option>
+            <option value="Rum">Rum</option>
+            <option value="Beer">Beer</option>
+            <option value="Wine">Wine</option>
+            <option value="Brandy">Brandy</option>
+            <option value="Vermouth">Vermouth</option>
+            <option value="Coffee_Liqueur">Coffee Liqueur</option>
+            <option value="Triple Sec">Triple_Sec</option>
+            <option value="Bourbon">Bourbon</option>
+            <option value="None">None</option>
+               
+             </select>        <label for="myCheckD">Second type</label> 
+             <input type="checkbox" id="myCheckD" onclick="myFunctionD()">
+     
+             <p id="textD" style="display:none">            <select class="custom-select form-control d-block w-100" id="inputD" name="inputD" >
+              <option value=""></option>
+              <option value="Vodka">Vodka</option>
+              <option value="Tequila">Tequila</option>
+              <option value="Gin">Gin</option>
+              <option value="Campari">Campari</option>
+              <option value="Whiskey">Whiskey</option>
+              <option value="Rum">Rum</option>
+              <option value="Beer">Beer</option>
+              <option value="Wine">Wine</option>
+              <option value="Brandy">Brandy</option>
+              <option value="Vermouth">Vermouth</option>
+              <option value="Coffee_Liqueur">Coffee Liqueur</option>
+              <option value="Triple Sec">Triple_Sec</option>
+              <option value="Bourbon">Bourbon</option>
+              <option value="None">None</option>
+               </select></p>
+     
+             <script>
+             function myFunctionD() {
+               var checkBox = document.getElementById("myCheckD");
+               var text = document.getElementById("textD");
+               if (checkBox.checked == true){
+                 text.style.display = "block";
+               } else {
+                 text.style.display = "none";
+               }
+             }
+             </script></p>
+          
+          <script>
+          function myFunctionC() {
+            var checkBox = document.getElementById("myCheckC");
+            var text = document.getElementById("textC");
+            if (checkBox.checked == true){
+              text.style.display = "block";
+            } else {
+               text.style.display = "none";
+            }
+          }
+          </script>
+        </div>
+    <!--  </div> -->
+
+    <!--  <div class="row"> -->
+        <div class="col-md-3">
+          <h3 class="text">Side Base</h3>
+          <img class="img-thumbnail" src="http://socialeatinghouse.com.au/wp-content/uploads/2016/11/Cocktail-Pouring.jpg" alt="" width="200" height="200">
+          <label for="myCheckE">Choose a side base</label> 
+          <input type="checkbox" id="myCheckE" onclick="myFunctionE()">
+          
+          <p id="textE" style="display:none">            <select class="custom-select form-control d-block w-100" id="inputE" name="inputE" required>
+            <option value=""></option>
+            <option value="Sparkling_soda">Sparkling soda</option>
+            <option value="Soda">Soda</option>
+            <option value="Lime Juice">Lime Juice</option>
+            <option value="Coffee">Coffee</option>
+            <option value="Syrup">Syrup</option>
+            <option value="Pear_Juice">Pear Juice</option>
+            <option value="Orange Juice">Orange Juice</option>
+            <option value="Pineapple_Juice">Pineapple Juice</option>
+            <option value="Tonic Water">Tonic Water</option>
+            <option value="Cola">Cola</option>
+            <option value="None">None</option>
+               
+             </select>        <label for="myCheckF">Second side base</label> 
+             <input type="checkbox" id="myCheckF" onclick="myFunctionF()">
+     
+             <p id="textF" style="display:none">            <select class="custom-select form-control d-block w-100" id="inputF" name="inputF" >
+              <option value=""></option>
+              <option value="Sparkling_soda">Sparkling soda</option>
+              <option value="Soda">Soda</option>
+              <option value="Lime Juice">Lime Juice</option>
+              <option value="Coffee">Coffee</option>
+              <option value="Syrup">Syrup</option>
+              <option value="Pear_Juice">Pear Juice</option>
+              <option value="Orange Juice">Orange Juice</option>
+              <option value="Pineapple_Juice">Pineapple Juice</option>
+              <option value="Tonic Water">Tonic Water</option>
+              <option value="Cola">Cola</option>
+              <option value="None">None</option>
+               </select></p>
+     
+             <script>
+             function myFunctionF() {
+               var checkBox = document.getElementById("myCheckF");
+               var text = document.getElementById("textF");
+               if (checkBox.checked == true){
+                 text.style.display = "block";
+               } else {
+                 text.style.display = "none";
+               }
+             }
+             </script></p>
+          
+          <script>
+          function myFunctionE() {
+            var checkBox = document.getElementById("myCheckE");
+            var text = document.getElementById("textE");
+            if (checkBox.checked == true){
+              text.style.display = "block";
+            } else {
+               text.style.display = "none";
+            }
+          }
+          </script>
+        </div>
+    <!--  </div> -->
+
+    <!--  <div class="row"> -->
+        <div class="col-md-3">
+          <h3 class="text">Garnish</h3>
+          <img class="img-thumbnail" src="https://i.pinimg.com/originals/e2/cc/a0/e2cca05892f9e728affc9d8461948f13.jpg" alt="" width="105" height="105">
+          <label for="myCheckG">Choose a garnish</label> 
+          <input type="checkbox" id="myCheckG" onclick="myFunctionG()">
+          
+          <p id="textG" style="display:none">            <select class="custom-select form-control d-block w-100" id="inputG" name="inputG" required>
+            <option value=""></option>
+            <option value="Whipped cream">Whipped cream</option>
+            <option value="Grapefruit">Grapefruit</option>
+            <option value="Cherry">Cherry</option>
+            <option value="Lime">Lime</option>
+            <option value="Orange">Orange</option>
+            <option value="Rosemary">Rosemary</option>
+            <option value="Mint">Mint</option>
+            <option value="Coffee">Coffee</option>
+            <option value="Bitters">Bitters</option>
+            <option value="None">None</option>
+               
+             </select>        <label for="myCheckH">Second garnish</label> 
+             <input type="checkbox" id="myCheckH" onclick="myFunctionH()">
+     
+             <p id="textH" style="display:none">            <select class="custom-select form-control d-block w-100" id="inputH" name="inputH" >
+              <option value=""></option>
+              <option value=""></option>
+              <option value="Whipped cream">Whipped cream</option>
+              <option value="Grapefruit">Grapefruit</option>
+              <option value="Cherry">Cherry</option>
+              <option value="Lime">Lime</option>
+              <option value="Orange">Orange</option>
+              <option value="Rosemary">Rosemary</option>
+              <option value="Mint">Mint</option>
+              <option value="Coffee">Coffee</option>
+              <option value="Bitters">Bitters</option>
+              <option value="None">None</option>
+               </select></p>
+     
+             <script>
+             function myFunctionH() {
+               var checkBox = document.getElementById("myCheckH");
+               var text = document.getElementById("textH");
+               if (checkBox.checked == true){
+                 text.style.display = "block";
+               } else {
+                 text.style.display = "none";
+               }
+             }
+             </script></p>
+          
+          <script>
+          function myFunctionG() {
+            var checkBox = document.getElementById("myCheckG");
+            var text = document.getElementById("textG");
+            if (checkBox.checked == true){
+              text.style.display = "block";
+            } else {
+               text.style.display = "none";
+            }
+          }
+          </script>
+        </div>
+      </div>
+      <!--<input type="submit" value="Submit"> -->
+
+      <div class="footer">
+          <p class="text-center">
+              <button type='reset' class="btn btn-dark">Reset</button>
+              <button type='submit' value="Submit" class="btn btn-dark">Gimme cocktail!!!</button>
+          </p>
+      </div>
+  </form>
+
+
+</div>
+</body>
+</html>
+
