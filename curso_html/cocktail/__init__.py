@@ -48,7 +48,7 @@ def create_app(test_config=None):
             topping2 = (str(topping_2)).replace(" ","_")
 
 
-            
+
             flavor_tuple = (flavor, flavor2)
             flavor_tuple_2 = (flavor1, flavor_2)
             alcohol_tuple = (alcohol_type, alcohol_type2)
@@ -59,7 +59,7 @@ def create_app(test_config=None):
             topping_tuple_2 = (topping1, topping_2)
 
             my_list = [flavor_tuple, topping_tuple, alcohol_tuple, side_tuple]
-            
+
             my_list3 = "Flavor: " + (str(flavor_tuple_2)) + "   " + "Toppings: " + (str(topping_tuple_2)) + "   " + "Alcohols: " + (str(alcohol_tuple_2)) + "   " + "Side Bases: " + (str(side_tuple_2))
             my_list2 = my_list3.replace("(","")
             my_list3 = my_list2.replace(")","")
@@ -69,9 +69,9 @@ def create_app(test_config=None):
             session["flavor"] = my_list3
             conn = mysql.connector.connect(
                 host="localhost",
-                database="Perfect_Cocktaildb",
-                user="Al_Af",
-                password="Manade_lord1234#" )
+                database="Final_Perfect_Cocktail",
+                user="root",
+                password="MySqL2022*" )
 
             # conn = pyodbc.connect(conn_str)
             cursor = conn.cursor()
@@ -80,32 +80,117 @@ def create_app(test_config=None):
             my_set = set()
             cocktail_matches = []
 
-            
-            cursor.execute("SELECT Cocktail_name, Flavors, Toppings, Alcohol_type, Side_Base FROM Cocktail ")
-            
-            
-            for row in cursor:
+            my_name = []
+            my_cocktails = []
 
+            #FLAVORS
+            cursor.execute("SELECT idFlavors FROM Flavors WHERE Flavor_Type = %s OR Flavor_Type = %s", (flavor, flavor2))
+
+            for row in cursor:
+                my_name.append(row)
+
+            if len(my_name) == 2:
+
+                cursor.execute ("SELECT Cocktail_Name FROM Cocktails c, Cocktails_has_Flavors cf WHERE cf.idCocktails = c.idCocktails AND (cf.idFlavors = %s OR cf.idFlavors = %s)", (my_name[0],my_name[1]))
+
+
+            else:
+                cursor.execute ("SELECT Cocktail_Name FROM Cocktails c, Cocktails_has_Flavors cf WHERE cf.idCocktails = c.idCocktails AND (cf.idFlavors = %s)", (my_name[0]))
+
+            for row in cursor:
                 row1 = str(row)
-                row2 = row1.replace(",","") 
+                row2 = row1.replace(",","")
                 row1 = row2.replace(")","")
                 row2 = row1.replace("(","")
                 row1 = row2.replace("'","")
-                row2 = row1.split()
-                cocktail_matches = [l for i in my_list for l in i if l in row2]#for x in row if l ==x]
-                #for i in my_list:
-                #   for l in i:
-                #      for x in row2:
-                #         if l == x:
-                    #            cocktail_matches.append(l)
-                
-                if len(cocktail_matches) > 1:
-                    cocktail_name = row[0]
-                    my_dictionary[cocktail_name] = (len(cocktail_matches))
-                    my_set.add(cocktail_name)
+                my_cocktails.append(row1)
 
-                cocktail_matches = []
-            
+
+            #SIDE BASES
+            my_name = []
+
+            cursor.execute("SELECT idSB FROM Side_Base WHERE SB_Type = %s OR SB_Type = %s", (side_base1, side_base_2))
+
+            for row in cursor:
+                my_name.append(row)
+
+            if len(my_name) == 2:
+
+                cursor.execute ("SELECT Cocktail_Name FROM Cocktails c, Cocktails_has_Side_Base cb  WHERE cb.idCocktails = c.idCocktails AND (cb.idSB = %s OR cb.idSB = %s)", (my_name[0],my_name[1]))
+
+
+            else:
+                cursor.execute ("SELECT Cocktail_Name FROM Cocktails c, Cocktails_has_Side_Base cb  WHERE cb.idCocktails = c.idCocktails AND (cb.idSB = %s)", (my_name[0]))
+
+            for row in cursor:
+                row1 = str(row)
+                row2 = row1.replace(",","")
+                row1 = row2.replace(")","")
+                row2 = row1.replace("(","")
+                row1 = row2.replace("'","")
+                my_cocktails.append(row1)
+
+
+            #TYPE OF Alcohol
+            my_name = []
+
+            cursor.execute("SELECT idAlcohol FROM Type_of_Alcohol WHERE Alcohol_Type = %s OR Alcohol_Type = %s", (alcohol_type1, alcohol_type_2))
+
+            for row in cursor:
+                my_name.append(row)
+
+
+            if len(my_name) == 2:
+
+                cursor.execute ("SELECT Cocktail_Name FROM Cocktails c, Cocktails_has_Type_of_Alcohol ca  WHERE ca.idCocktails = c.idCocktails AND (ca.idAlcohol = %s OR ca.idAlcohol = %s)", (my_name[0],my_name[1]))
+
+
+            else:
+                cursor.execute ("SELECT Cocktail_Name FROM Cocktails c, Cocktails_has_Type_of_Alcohol ca  WHERE ca.idCocktails = c.idCocktails AND (ca.idAlcohol = %s)", (my_name[0]))
+
+            for row in cursor:
+                row1 = str(row)
+                row2 = row1.replace(",","")
+                row1 = row2.replace(")","")
+                row2 = row1.replace("(","")
+                row1 = row2.replace("'","")
+                my_cocktails.append(row1)
+
+
+            #TOPPINGS
+            my_name = []
+
+            cursor.execute("SELECT idToppings FROM Toppings WHERE Toppings_Type = %s OR Toppings_Type = %s", (topping1, topping_2))
+
+            for row in cursor:
+                my_name.append(row)
+
+            if len(my_name) == 2:
+
+                cursor.execute ("SELECT Cocktail_Name FROM Cocktails c, Cocktails_has_Toppings ct  WHERE ct.idCocktails = c.idCocktails AND (ct.idToppings = %s OR ct.idToppings = %s)", (my_name[0],my_name[1]))
+
+
+            else:
+                cursor.execute ("SELECT Cocktail_Name FROM Cocktails c, Cocktails_has_Toppings ct  WHERE ct.idCocktails = c.idCocktails AND (ct.idToppings = %s)", (my_name[0]))
+
+            for row in cursor:
+                row1 = str(row)
+                row2 = row1.replace(",","")
+                row1 = row2.replace(")","")
+                row2 = row1.replace("(","")
+                row1 = row2.replace("'","")
+                my_cocktails.append(row1)
+
+
+            my_set = set()
+            for i in my_cocktails:
+                my_set.add(i)
+
+            for i in my_set:
+                x = my_cocktails.count(i)
+                my_dictionary[i] = x
+
+
             my_list = list(my_set)
 
             last_dictionary = dict(sorted(my_dictionary.items(), key=lambda x: x[1], reverse=True))
@@ -114,7 +199,7 @@ def create_app(test_config=None):
                 final_cocktail = list(last_dictionary.keys())[0]
                 session["user"] = final_cocktail
                 final_cocktail_1 = [final_cocktail]
-                cursor.execute("SELECT CocktailID FROM Cocktail WHERE Cocktail_name = %s", (final_cocktail_1))
+                cursor.execute("SELECT idCocktails FROM Cocktails WHERE Cocktail_Name = %s", (final_cocktail_1))
                 for row in cursor:
                      cocktail_id = row
                 session["id"] = cocktail_id
@@ -129,33 +214,89 @@ def create_app(test_config=None):
                 return redirect(url_for("query"))
             else:
                 return render_template("verification.html")
-        
+
     @app.route("/cocktail/user/")
     def user():
         if "user" in session:
             conn = mysql.connector.connect(
                 host="localhost",
-                database="Perfect_Cocktaildb",
-                user="Al_Af",
-                password="Manade_lord1234#" )
+                database="Final_Perfect_Cocktail",
+                user="root",
+                password="MySqL2022*" )
 
             # conn = pyodbc.connect(conn_str)
             cursor = conn.cursor()
-            user = (session["user"])
-            userx = (str(user)).replace("_", " ")
-            return_flavor = session["flavor"] 
+            user = (session["id"])
+            naming = (session["user"])
+            userx = (str(naming)).replace("_", " ")
+            return_flavor = session["flavor"]
 
-            
-            cursor.execute("SELECT Cocktail_name, Image, Recipe, Flavors, Toppings, Alcohol_type, Side_Base FROM Cocktail")
-            Image = ""
-            Recipe = ""
+            flavor_final = []
+            cursor.execute("SELECT Flavor_Type FROM Flavors f, Cocktails_has_Flavors cf WHERE cf.idFlavors = f.idFlavors AND cf.idCocktails = %s", (user))
             for row in cursor:
-                if row[0] == user:
-                    Image = row[1]
-                    Recipe = row[2]
+                row1 = str(row)
+                row2 = row1.replace(",","")
+                row1 = row2.replace(")","")
+                row2 = row1.replace("(","")
+                row1 = row2.replace("'","")
+                flavor_final.append(row1)
 
-                    flavor = "Flavors: " + str(row[3])+ "   Toppings: " + str(row[4]) + "   Alcohols: " + str(row[5]) + "   Side Bases: " + str(row[6])    
-                    return f""" <!doctype html>
+
+            sb_final = []
+            cursor.execute("SELECT SB_Type FROM Side_Base s, Cocktails_has_Side_Base sb WHERE sb.idSB = s.idSB AND sb.idCocktails = %s", (user))
+            for row in cursor:
+                row1 = str(row)
+                row2 = row1.replace(",","")
+                row1 = row2.replace(")","")
+                row2 = row1.replace("(","")
+                row1 = row2.replace("'","")
+                sb_final.append(row1)
+
+            toppings_final = []
+            cursor.execute("SELECT Toppings_Type FROM Toppings t, Cocktails_has_Toppings ct WHERE ct.idToppings = t.idToppings AND ct.idCocktails = %s", (user))
+            for row in cursor:
+                row1 = str(row)
+                row2 = row1.replace(",","")
+                row1 = row2.replace(")","")
+                row2 = row1.replace("(","")
+                row1 = row2.replace("'","")
+                toppings_final.append(row1)
+
+            alcohol_final = []
+            cursor.execute("SELECT Alcohol_Type FROM Type_of_Alcohol a, Cocktails_has_Type_of_Alcohol ta WHERE a.idAlcohol = ta.idAlcohol AND ta.idCocktails = %s", (user))
+            for row in cursor:
+                row1 = str(row)
+                row2 = row1.replace(",","")
+                row1 = row2.replace(")","")
+                row2 = row1.replace("(","")
+                row1 = row2.replace("'","")
+                alcohol_final.append(row1)
+
+            cursor.execute("SELECT Recipe FROM Cocktails WHERE idCocktails = %s", (user))
+
+            for row in cursor:
+                row1 = str(row)
+                row2 = row1.replace(")","")
+                row1 = row2.replace("(","")
+                row2 = row1.replace("'","")
+                final_recipe = row2
+
+            final_recipe_2 = final_recipe.replace(">", "<br> <br>")
+
+            cursor.execute("SELECT Image_URL FROM Cocktails WHERE idCocktails = %s", (user))
+
+            for row in cursor:
+                row1 = str(row)
+                row2 = row1.replace(")","")
+                row1 = row2.replace("(","")
+                row2 = row1.replace("'","")
+                row1 = row2.replace(",","")
+                final_image = row1
+
+
+
+            flavor = "Flavors: " + str(flavor_final) + "   Toppings: " + str(toppings_final) + "   Alcohols: " + str(alcohol_final) + "   Side Bases: " + str(sb_final)
+            return f""" <!doctype html>
     <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -210,15 +351,16 @@ def create_app(test_config=None):
             <div class="row border-bottom mb-12 pb-5">
             <div class="col-md-6">
                 <h4>{userx}</h4>
-                <img src="{Image}"" class="img-fluid" alt="{userx}">
+                <img src="{final_image}" class="img-fluid" alt="{userx}">
             </div>
-            
+
             <!--</div>-->
             <!--<div class="row pb-5">-->
             <div class="col-md-6">
                 <h4 class="mb-4">Recipe</h4>
-                <h4 class="mb-4">Ingridients</h4>
-                {Recipe}
+                {final_recipe_2}
+                <br>
+                <br>
                 <p>Your search</p>
                 {return_flavor}
                 <br>
@@ -230,7 +372,7 @@ def create_app(test_config=None):
                 <a href="http://127.0.0.1:5000/cocktail/alternative">
                 <button>See other matches</button>
             </a>
-                
+
             </form>
             </div>
             </div>
@@ -240,7 +382,7 @@ def create_app(test_config=None):
     </html>
     """
 
-    
+
         else:
             return redirect(url_for("home"))
 
@@ -261,33 +403,100 @@ def create_app(test_config=None):
 
                 ter1 = [ter]
                 terx = (str(ter)).replace("_", " ")
-                return_flavor = session["flavor"] 
+                return_flavor = session["flavor"]
 
-                
-                
 
-                session["user"] = ter
-                session["dict"] = dictionary_alt
                 conn = mysql.connector.connect(
                     host="localhost",
-                    database="Perfect_Cocktaildb",
-                    user="Al_Af",
-                    password="Manade_lord1234#" )
+                    database="Final_Perfect_Cocktail",
+                    user="root",
+                    password="MySqL2022*" )
 
                 # conn = pyodbc.connect(conn_str)
                 cursor = conn.cursor()
-                Image = ""
-                Recipe = ""
-                
-                cursor.execute("SELECT Cocktail_name, Image, Recipe, Flavors, Toppings, Alcohol_type, Side_Base FROM Cocktail WHERE Cocktail_name = %s", (ter1))
-                Image = ""
-                Recipe = ""
+                user = (session["id"])
+                naming = (session["user"])
+                userx = (str(naming)).replace("_", " ")
+                return_flavor = session["flavor"]
+
+                cursor.execute("SELECT idCocktails FROM Cocktails WHERE Cocktail_Name = %s", (ter1))
                 for row in cursor:
-                        Image = row[1]
-                        Recipe = row[2]
-                                               
-                        flavor = "Flavors: " + str(row[3])+ "   Toppings: " + str(row[4]) + "   Alcohols: " + str(row[5]) + "   Side Bases: " + str(row[6])
-                        return f""" <!doctype html>
+                    row1 = str(row)
+                    row2 = row1.replace(",","")
+                    row1 = row2.replace(")","")
+                    row2 = row1.replace("(","")
+                    row1 = row2.replace("'","")
+                    user = row1
+
+                user = [user]
+
+                flavor_final = []
+                cursor.execute("SELECT Flavor_Type FROM Flavors f, Cocktails_has_Flavors cf WHERE cf.idFlavors = f.idFlavors AND cf.idCocktails = %s", (user))
+                for row in cursor:
+                    row1 = str(row)
+                    row2 = row1.replace(",","")
+                    row1 = row2.replace(")","")
+                    row2 = row1.replace("(","")
+                    row1 = row2.replace("'","")
+                    flavor_final.append(row1)
+
+
+                sb_final = []
+                cursor.execute("SELECT SB_Type FROM Side_Base s, Cocktails_has_Side_Base sb WHERE sb.idSB = s.idSB AND sb.idCocktails = %s", (user))
+                for row in cursor:
+                    row1 = str(row)
+                    row2 = row1.replace(",","")
+                    row1 = row2.replace(")","")
+                    row2 = row1.replace("(","")
+                    row1 = row2.replace("'","")
+                    sb_final.append(row1)
+
+                toppings_final = []
+                cursor.execute("SELECT Toppings_Type FROM Toppings t, Cocktails_has_Toppings ct WHERE ct.idToppings = t.idToppings AND ct.idCocktails = %s", (user))
+                for row in cursor:
+                    row1 = str(row)
+                    row2 = row1.replace(",","")
+                    row1 = row2.replace(")","")
+                    row2 = row1.replace("(","")
+                    row1 = row2.replace("'","")
+                    toppings_final.append(row1)
+
+                alcohol_final = []
+                cursor.execute("SELECT Alcohol_Type FROM Type_of_Alcohol a, Cocktails_has_Type_of_Alcohol ta WHERE a.idAlcohol = ta.idAlcohol AND ta.idCocktails = %s", (user))
+                for row in cursor:
+                    row1 = str(row)
+                    row2 = row1.replace(",","")
+                    row1 = row2.replace(")","")
+                    row2 = row1.replace("(","")
+                    row1 = row2.replace("'","")
+                    alcohol_final.append(row1)
+
+
+                cursor.execute("SELECT Recipe FROM Cocktails WHERE idCocktails = %s", (user))
+
+                for row in cursor:
+                    row1 = str(row)
+                    row2 = row1.replace(")","")
+                    row1 = row2.replace("(","")
+                    row2 = row1.replace("'","")
+                    final_recipe = row2
+
+                final_recipe_2 = final_recipe.replace(">", "<br> <br>")
+
+                cursor.execute("SELECT Image_URL FROM Cocktails WHERE idCocktails = %s", (user))
+
+                for row in cursor:
+                    row1 = str(row)
+                    row2 = row1.replace(")","")
+                    row1 = row2.replace("(","")
+                    row2 = row1.replace("'","")
+                    row1 = row2.replace(",","")
+                    final_image = row1
+
+
+
+                flavor = "Flavors: " + str(flavor_final) + "   Toppings: " + str(toppings_final) + "   Alcohols: " + str(alcohol_final) + "   Side Bases: " + str(sb_final)
+                return f""" <!doctype html>
         <html lang="en">
         <head>
             <meta charset="utf-8">
@@ -299,12 +508,13 @@ def create_app(test_config=None):
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
             <link href="/static/bootstrap.min.css" rel="stylesheet">
+
         </head>
         <body>
             <!-- Begin navbar -->
             <header>
             <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #062d4c">
-                <a class="navbar-brand mr-0" href="http://127.0.0.1:5000/query">
+                <a class="navbar-brand mr-0" href="/cocktail/query">
                 <img class="mr-1" src="/static/cocktail.png" alt="" width="30" height="30">
                 Perfect Cocktail
                 </a>
@@ -319,7 +529,7 @@ def create_app(test_config=None):
                     </a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="http://127.0.0.1:5000/cocktail/query">
+                    <a class="nav-link" href="http://127.0.0.1:5000/query">
                         Try another One
                     </a>
                     </li>
@@ -340,15 +550,17 @@ def create_app(test_config=None):
                 </div>
                 <div class="row border-bottom mb-12 pb-5">
                 <div class="col-md-6">
-                    <h4>{terx}</h4>
-                    <img src="{Image}"" class="img-fluid" alt="{terx}">
+                    <h4>{ter}</h4>
+                    <img src= "{final_image}" class="img-fluid" alt="{ter}">
                 </div>
+
                 <!--</div>-->
                 <!--<div class="row pb-5">-->
                 <div class="col-md-6">
                     <h4 class="mb-4">Recipe</h4>
-                    <h4 class="mb-4">Ingridients</h4>
-                    {Recipe}
+                    {final_recipe_2}
+                    <br>
+                    <br>
                     <p>Your search</p>
                     {return_flavor}
                     <br>
@@ -360,6 +572,7 @@ def create_app(test_config=None):
                     <a href="http://127.0.0.1:5000/cocktail/alternative">
                     <button>See other matches</button>
                 </a>
+
                 </form>
                 </div>
                 </div>
@@ -369,20 +582,21 @@ def create_app(test_config=None):
         </html>
         """
 
+
             else:
                 return redirect(url_for("home"))
 
     @app.route("/cocktail/register", methods =("POST", "GET"))
     def register():
         if request.method == "POST":
-            return render_template("login2.html") 
+            return render_template("login2.html")
         else:
             return redirect(url_for("home"))
 
     @app.route("/cocktail/log", methods =("POST", "GET"))
     def log():
         if request.method == "POST":
-            return render_template("log.html") 
+            return render_template("log.html")
         else:
             return redirect(url_for("home"))
 
@@ -419,7 +633,7 @@ def create_app(test_config=None):
             cursor.execute('''SELECT * FROM users WHERE Username = %s and Password = %s''',(username,password))
 
             for row in cursor:
-                name.append(row) 
+                name.append(row)
             if name == []:
                 flash("Incorrect password or user. Try again")
                 return render_template("log.html")
@@ -448,7 +662,7 @@ def create_app(test_config=None):
             cursor.execute('''SELECT * FROM users WHERE Username = %s ''', (username1))
 
             for row in cursor:
-                name.append(row) 
+                name.append(row)
             if name != []:
                 flash("User already exists")
                 return render_template("log.html")
@@ -458,8 +672,8 @@ def create_app(test_config=None):
                 id = []
                 cursor.execute('''SELECT * FROM users WHERE UserID = %s''',(x1))
                 for row in cursor:
-                    id.append(row) 
-                
+                    id.append(row)
+
                 if id == []:
                     cursor.execute('''INSERT INTO users (UserID, Username, Password) VALUES (%s, %s, %s)''',(x,username,password))
                     conn.commit()
@@ -468,7 +682,7 @@ def create_app(test_config=None):
                     x1 = [x]
                     cursor.execute('''SELECT * FROM users WHERE UserID = %s''',(x1))
                     for row in cursor:
-                        id.append(row) 
+                        id.append(row)
                     if id == []:
                         cursor.execute('''INSERT INTO users(UserID, Username, Password) VALUES (%s, %s, %s)''',(x,username,password))
                         conn.commit()
@@ -484,7 +698,7 @@ def create_app(test_config=None):
             info = session["id"]
             if name == "":
                 return(redirect(url_for("user")))
-                
+
             else:
                 conn = mysql.connector.connect(
                     host="localhost",
@@ -500,7 +714,7 @@ def create_app(test_config=None):
                 list_c += str(info[0]) + ","
                 name1 = [name]
                 cursor.execute("SELECT History FROM users WHERE Username = %s;",(name1))
-                
+
                 for row in cursor:
                     for i in row:
                         if  i != "NULL":
@@ -509,9 +723,9 @@ def create_app(test_config=None):
                                 row = row1.replace(")","")
                                 row1 = row.replace("(","")
                                 row = row1.replace('"',"")
-                                
+
                                 list_c += row1
-                
+
                 list_c.split(",")
                 for i in list_c:
                     if i != "reverse":
@@ -520,7 +734,7 @@ def create_app(test_config=None):
 
                 if list_e[-1] == ",":
                     list_d =list_e[:-1]
-                
+
                 else:
                     list_d = list_e
                 cursor.execute('''UPDATE users SET History = %s WHERE Username = %s''',(list_d, name))
